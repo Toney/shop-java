@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.ShopAreaMapper">
+  <resultMap id="ShopArea" type="com.shop.bean.ShopArea">
+    <id column="area_id" jdbcType="INTEGER" property="areaId" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="area_parent_id" jdbcType="INTEGER" property="areaParentId" />
+    <result column="area_sort" jdbcType="INTEGER" property="areaSort" />
+    <result column="area_deep" jdbcType="INTEGER" property="areaDeep" />
+  </resultMap>
+  <insert id="insert" parameterType="com.shop.bean.ShopArea">
+    insert into shop_area (area_id, area_name, area_parent_id, 
+      area_sort, area_deep)
+    values (#{areaId,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR}, #{areaParentId,jdbcType=INTEGER}, 
+      #{areaSort,jdbcType=TINYINT}, #{areaDeep,jdbcType=BIT})
+  </insert>
+ <select id="findByParentIdAndDeep" resultMap="ShopArea">
+	select 
+		area_id, area_name, area_parent_id, area_sort, area_deep 
+	from 
+		shop_area 
+	WHERE 
+		area_parent_id = #{areaParentId_id} and area_deep = #{areaDeep} 
+</select>
+  
+</mapper>
