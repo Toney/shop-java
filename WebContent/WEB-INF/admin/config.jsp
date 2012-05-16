@@ -107,6 +107,7 @@
 					<div region="center"  border="false" class="bdcenter">
 							<form method="post" id="form_config_indexSlide" enctype="multipart/form-data" >
 								<input type="hidden" name="action" /> 
+								<input type="hidden" name="savepath" value="" />
 								<table class="tab_form">
 									<tr>
 										<td class="edittd">名称：</td>

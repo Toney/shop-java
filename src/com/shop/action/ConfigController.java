@@ -19,11 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.shop.bean.IndexSlide;
 import com.shop.bean.Message;
 import com.shop.service.ConfigService;
 import com.shop.util.CacheManager;
 import com.shop.util.Constant;
+import com.shop.util.JsonUtil;
 import com.shop.util.cache.CacheStore;
+
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "admin/config")
@@ -149,7 +153,19 @@ public class ConfigController extends BaseController implements
 	 * 查询幻灯片列表
 	 */ 
 	@RequestMapping(value = "/config_indexSlide", method = RequestMethod.POST)
-	public String config_indexSlide(){
+	public String config_indexSlide(CommonsMultipartFile imgFile,String title,String url,String order,String action,String savepath){
+		HashMap<String, String> hashconfig = (HashMap<String, String>)CacheManager.getFromCache(Constant.SYSTEM_CONFIG);
+		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("indexSlide"), IndexSlide.class);
+		
+		Message message = new Message();
+		if(action.equals("add")){
+			
+		}else if(action.equals("update")){
+			
+		}else if(action.equals("delete")){
+			
+		}
+		
 		return "";
 	}
 	
