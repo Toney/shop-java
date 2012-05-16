@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.ArticleMapper">
+<resultMap id="ShopArticleResult" type="com.shop.model.ShopArticle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="visiblity" property="visiblity" jdbcType="BIT" />
+    <result column="top" property="top" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="style" property="style" jdbcType="BIT" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+</resultMap>
+<select id="load" resultMap="ShopArticleResult">
+	select title from shop_article order by create_time desc limit 0,#{loadnum}
+</select>
+</mapper>

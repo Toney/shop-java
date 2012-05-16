@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.GuideMapper">
+  <resultMap id="ShopGuideResult" type="com.shop.model.ShopGuide">
+    <id column="order" jdbcType="INTEGER" property="order" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
+  </resultMap>
+  <select id="loadAll" resultMap="ShopGuideResult">
+  	select * from shop_guide order by `order` asc
+  </select>
+  <update id="updateOrder" >
+  	update shop_guide set `order` = #{new_order} where `order`= #{order}
+  </update>
+  <select id="getByOrder" resultMap="ShopGuideResult">
+  	select * from shop_guide where `order` = #{order}
+  </select>
+  <delete id="deleteGuideByOrder" >
+  	delete from shop_guide where `order` = #{order}
+  </delete>
+    <insert id="insert" parameterType="com.shop.model.ShopGuide">
+    insert into shop_guide (`order`, name, link
+      )
+    values (#{order,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="getMaxOrder" resultType="int" >
+  	select max(`order`) from shop_guide
+  </select>
+  <update id="update" parameterType="com.shop.model.ShopGuide">
+   update shop_guide set 
+      name = #{name,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR} 
+     where `order` =  #{order,jdbcType=INTEGER}
+  </update>
+</mapper>

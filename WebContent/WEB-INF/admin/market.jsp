@@ -1,0 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<ul class="easyui-tree" animate="true" lines="true" >
+		<li><span>促销活动</span><ul ><li class="selected"><a href="/iwebshop/index.php?controller=market&amp;action=pro_rule_list">促销活动列表</a></li></ul></li><li><span>营销活动</span><ul ><li><a href="/iwebshop/index.php?controller=market&amp;action=pro_speed_list">限时抢购</a></li><li><a href="/iwebshop/index.php?controller=market&amp;action=regiment_list">团购</a></li></ul></li><li><span>代金券管理</span><ul ><li><a href="/iwebshop/index.php?controller=market&amp;action=ticket_list">代金券列表</a></li><li><a href="/iwebshop/index.php?controller=market&amp;action=ticket_excel_list">代金券文件列表</a></li></ul></li></ul>

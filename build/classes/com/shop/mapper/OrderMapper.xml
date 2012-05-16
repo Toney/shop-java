@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.OrderMapper">
+	<resultMap id="ShopOrderResult" type="com.shop.model.ShopOrder">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+		<result column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="accept_name" jdbcType="VARCHAR" property="acceptName" />
+		<result column="pay_code" jdbcType="VARCHAR" property="payCode" />
+		<result column="pay_type" jdbcType="INTEGER" property="payType" />
+		<result column="distribution" jdbcType="INTEGER" property="distribution" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+		<result column="distribution_status" jdbcType="INTEGER" property="distributionStatus" />
+		<result column="postcode" jdbcType="VARCHAR" property="postcode" />
+		<result column="telphone" jdbcType="VARCHAR" property="telphone" />
+		<result column="country" jdbcType="INTEGER" property="country" />
+		<result column="province" jdbcType="INTEGER" property="province" />
+		<result column="city" jdbcType="INTEGER" property="city" />
+		<result column="area" jdbcType="INTEGER" property="area" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="payable_amount" jdbcType="FLOAT" property="payableAmount" />
+		<result column="FLOAT_amount" jdbcType="FLOAT" property="FLOATAmount" />
+		<result column="payable_freight" jdbcType="FLOAT" property="payableFreight" />
+		<result column="FLOAT_freight" jdbcType="FLOAT" property="FLOATFreight" />
+		<result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+		<result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="completion_time" jdbcType="TIMESTAMP" property="completionTime" />
+		<result column="invoice" jdbcType="INTEGER" property="invoice" />
+		<result column="postscript" jdbcType="VARCHAR" property="postscript" />
+		<result column="if_del" jdbcType="INTEGER" property="ifDel" />
+		<result column="insured" jdbcType="FLOAT" property="insured" />
+		<result column="if_insured" jdbcType="INTEGER" property="ifInsured" />
+		<result column="pay_fee" jdbcType="FLOAT" property="payFee" />
+		<result column="invoice_title" jdbcType="VARCHAR" property="invoiceTitle" />
+		<result column="taxes" jdbcType="FLOAT" property="taxes" />
+		<result column="promotions" jdbcType="FLOAT" property="promotions" />
+		<result column="discount" jdbcType="FLOAT" property="discount" />
+		<result column="order_amount" jdbcType="FLOAT" property="orderAmount" />
+		<result column="if_print" jdbcType="VARCHAR" property="ifPrint" />
+		<result column="prop" jdbcType="VARCHAR" property="prop" />
+		<result column="accept_time" jdbcType="VARCHAR" property="acceptTime" />
+		<result column="exp" jdbcType="INTEGER" property="exp" />
+		<result column="point" jdbcType="INTEGER" property="point" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="note" jdbcType="LONGVARCHAR" property="note" />
+	</resultMap>
+	<select id="getByCreateTime" resultMap="ShopOrderResult">
+		select id,order_no,accept_name,pay_status,order_amount,create_time from 
+		shop_order order by create_time desc limit 0,#{size}
+	</select>
+
+</mapper>

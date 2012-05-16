@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.AdminMapper">
+  <resultMap id="ShopAdminResult" type="com.shop.model.ShopAdmin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="last_ip" property="lastIp" jdbcType="VARCHAR" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+  </resultMap>
+ <select id="findByName"   parameterType="string" resultMap="ShopAdminResult" >
+	select * from shop_admin where admin_name = #{name} 
+ </select>
+  
+</mapper>  

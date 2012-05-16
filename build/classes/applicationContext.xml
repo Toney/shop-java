@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" 
+          http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+          http://www.springframework.org/schema/aop 
+          http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+          
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.logicalcobwebs.proxool.ProxoolDriver" />
+		<property name="url" value="proxool.shop" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- datasource 配置jdbcTemplate -->
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+
+
+	<!-- myBatis配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- DAO层由 MapperScannerConfigurer自动生成mapper bean -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.shop.mapper" />
+	</bean>
+	
+	<!-- Service层 -->
+	<context:component-scan base-package="com.shop.service.impl" />
+
+	<!-- 事务 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- get用于获取单个对象，数据操作 -->
+			<tx:method name="get*" read-only="true" />
+			<!-- 获取集合，用于验证等操作 -->
+			<tx:method name="query*" read-only="true" />
+			<!-- 查找对象，用于验证等操作 -->
+			<tx:method name="find*" read-only="true" />
+			<!-- 获取集合，用于展示 -->
+			<tx:method name="load*" read-only="true" />
+			
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			
+			<tx:method name="*" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.shop.service.*Service.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+
+</beans>

@@ -1,0 +1,64 @@
+/*easyui*/
+.panel-body{background:none; }
+/*easyui*/
+body{font-size:12px;}
+body, input, button, select, textarea{font:12px/1.5 Tahoma,'Microsoft Yahei','Simsun'}
+
+a{cursor: pointer;}
+
+.headerNav{background-position: 100% -50px;background-repeat: no-repeat;height: 50px;background:url("./images/header_bg.png") repeat-x scroll 0 0 transparent;}
+.logo{float: left;height: 50px;text-indent: -1000px;width: 250px;background: url("./images/logo.png") no-repeat scroll 0 0 transparent;}
+
+.nav{float:right;list-style: none outside none;}
+.nav li{ float: left;line-height: 11px;margin-left: -1px;padding: 0 10px;position: relative;background:url("./images/listLine.png") no-repeat scroll 0 0 transparent;}
+.nav li a{color:#B9CCDA;}
+
+#navMenu ul{list-style: none outside none;margin:0px;padding:0px;}
+#navMenu, #navMenu li, #navMenu li.selected a, #navMenu li.selected span { background:url(./images/menu.png) no-repeat;}
+#navMenu { background-color:#1871dd;clear:both; }
+#navMenu li a, #navMenu li span { color:#FFF; }
+#navMenu li.selected span { color:#000; }
+#navMenu { display:block; overflow:hidden; height:35px; padding:0 5px; background-repeat:repeat-x;}
+#navMenu ul { float:left; display:block; overflow:hidden; position:relative;}
+#navMenu li { float:left; margin-left:-1px; background-position:0 -50px; position:relative;}
+#navMenu li a { float:left;}
+#navMenu li span { float:left; font-weight:bold; cursor:pointer; padding:0 15px;}
+#navMenu li a, #navMenu li span { line-height:35px; font-size:14px;}
+#navMenu li.selected { z-index:1;}
+#navMenu li.selected a, #navMenu li.selected a:hover { text-decoration:none; background-position:100% -150px;}
+#navMenu li.selected span { padding:0 8px; background-position:0 -100px;}
+
+.div_accordion ul{list-style: none outside none;margin:0px;padding:0px;}
+.div_accordion ul li{height:25px;line-height:25px;padding-left:5px;}
+.div_accordion li a{text-decoration: none;color:#000;}
+.div_accordion li a:hover{text-decoration: underline;}
+
+.tab_property{width:100%;text-align: left;margin-bottom: 10px;}
+.tab_property thead{background-color:#E9F3F9;}
+.tab_property td{height:25px;line-height:25px;padding-left:10px;}
+.tab_property td.title{width:120px;}
+
+table .tb_list{width:100%;text-align: left;}
+table .tb_list td{height:25px;line-height:25px;}
+table .tb_list td.lefttd{width: 120px;text-align: right;}
+table .tb_list td.righttd{padding-left:10px;}
+
+.tb_list2 td{height:20px;line-height:20px;}
+.tb_list2 td.lefttd{width:100px;text-align: right;}
+
+.body_panel{padding-right:15px;}
+.hidden{display:none;}
+
+.easyui-tree ul li a{text-decoration: none;color:#000;}
+.p20{padding: 20px;}
+.p10{padding:10px;}
+.bp{padding-right:15px;padding-top:10px;padding-left:10px;padding-bottom:10px;}
+
+.tab_form{width:100%;}
+.tab_form .edittd{width:100px;text-align: right;padding-right:10px;}
+.tab_form input.text{width:250px;margin-right: 10px;border:1px solid #D2D2D2;height: 20px;}
+
+.red{color: red;}
+.green{color:green;}
+
+.success{border:1px solid #FAD42E;height:25px;line-height:25px;padding:5px;padding-left:10px;background-color: #FBEC88;color:#9F5945;}
