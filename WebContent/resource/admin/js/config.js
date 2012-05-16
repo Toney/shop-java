@@ -116,6 +116,7 @@ $(function() {
 
 	//幻灯片列表
 	$('#config_indexSlide').datagrid({
+		url:'admin/config/config_indexSlide_list',
 		fit:'true',
 		nowrap: false,
 		striped: true,
@@ -129,6 +130,8 @@ $(function() {
 			iconCls:'icon-add',
 			handler:function(){
 				$("#wind_config_indexSlide").window("open");
+				$("#form_config_indexSlide").find("input[name=action]").val("add");
+				
 			}
 		},
 		{
@@ -136,7 +139,7 @@ $(function() {
 			text:'修改幻灯',
 			iconCls:'icon-edit',
 			handler:function(){
-				
+				$("#form_config_indexSlide").find("input[name=action]").val("update");
 				var selected = $('#config_indexSlide').datagrid('getSelected');
 				if(selected){
 					
@@ -159,7 +162,7 @@ $(function() {
 	
 	
 	$("#form_config_indexSlide").form({
-		url:"admin/guide/config_guide_do",
+		url:"admin/config/config_indexSlide",
 		onSubmit : function() {
 			if($('#form_config_indexSlide').form("validate")){
 				return true;
@@ -168,7 +171,11 @@ $(function() {
 			}
 		},
 		success : function(data) {
-			
+			var msg = jQuery.parseJSON(data);
+			if(msg.type == "true"){
+				$('#config_indexSlide').datagrid("reload");
+			}
+
 		}
 	});
 	

@@ -5,7 +5,7 @@ public class IndexSlide  implements java.io.Serializable{
 	private String title;
 	private String url;
 	private String image;
-	private String order;
+	private int order;
 	
 	public String getTitle() {
 		return title;
@@ -25,10 +25,10 @@ public class IndexSlide  implements java.io.Serializable{
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getOrder() {
+	public int getOrder() {
 		return order;
 	}
-	public void setOrder(String order) {
+	public void setOrder(int order) {
 		this.order = order;
 	}
 	

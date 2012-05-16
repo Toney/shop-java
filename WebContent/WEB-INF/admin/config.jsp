@@ -107,17 +107,17 @@
 					<div region="center"  border="false" class="bdcenter">
 							<form method="post" id="form_config_indexSlide" enctype="multipart/form-data" >
 								<input type="hidden" name="action" /> 
-								<input type="hidden" name="savepath" value="" />
+								<input type="hidden" name="savepath" value="resource/upload/indexslide/" />
 								<table class="tab_form">
 									<tr>
 										<td class="edittd">名称：</td>
 										<td><input type="text" class="text easyui-validatebox"
-											name="name"  required="true" validType="length[1,50]" /></td>
+											name="title"  required="true" validType="length[1,50]" /></td>
 									</tr>
 									<tr>
 										<td class="edittd">链接地址：</td>
 										<td><input type="text" class="text easyui-validatebox"
-											name="link" required="true" validType="length[1,100]" /></td>
+											name="url" required="true" validType="length[1,100]" /></td>
 									</tr>
 									<tr>
 										<td class="edittd">图片：</td>

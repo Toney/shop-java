@@ -210,7 +210,12 @@ public class JsonUtil {
         return json.toString();  
   
     }  
-  
+    
+    public static String getJsonString4JavaArray(Object javaArray){
+    	return JSONArray.fromObject(javaArray).toString();
+    }
+    
+    
     /** 
      * 将java对象转换成json字符串,并设定日期格式 
      *  

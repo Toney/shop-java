@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,9 @@ import com.shop.bean.Message;
 import com.shop.service.ConfigService;
 import com.shop.util.CacheManager;
 import com.shop.util.Constant;
+import com.shop.util.FileUtil;
 import com.shop.util.JsonUtil;
+import com.shop.util.StringUtil;
 import com.shop.util.cache.CacheStore;
 
 import java.util.*;
@@ -150,23 +153,46 @@ public class ConfigController extends BaseController implements
 	}
 	
 	/**
-	 * 查询幻灯片列表
+	 * 设置幻灯片列表
 	 */ 
 	@RequestMapping(value = "/config_indexSlide", method = RequestMethod.POST)
-	public String config_indexSlide(CommonsMultipartFile imgFile,String title,String url,String order,String action,String savepath){
+	@ResponseBody
+	public String config_indexSlide(@RequestParam("imgFile") CommonsMultipartFile imgFile,String title,String url,String order,String action,String savepath){
 		HashMap<String, String> hashconfig = (HashMap<String, String>)CacheManager.getFromCache(Constant.SYSTEM_CONFIG);
-		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("indexSlide"), IndexSlide.class);
+		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("index_slide"), IndexSlide.class);
 		
 		Message message = new Message();
 		if(action.equals("add")){
+			savepath = savepath +"image/"+StringUtil.getTimeMD5()+FileUtil.getSuffix(imgFile.getOriginalFilename());
+			String image = FileUtil.saveFile(imgFile, savepath, this.servletContext);
+			
+			IndexSlide slide = new IndexSlide();
+			slide.setImage(image);
+			slide.setOrder(0);
+			slide.setTitle(title);
+			slide.setUrl(url);
+			
+			slides.add(slide);
+			
+			this.configService.updateConfig("index_slide", JsonUtil.getJsonString4JavaArray(slide));
+			CacheManager.removeCache(Constant.SYSTEM_CONFIG);
 			
 		}else if(action.equals("update")){
 			
-		}else if(action.equals("delete")){
 			
 		}
+		message.setMessage("基本配置修改成功！");
+		message.setType("true");
+		return JSONObject.fromObject(message).toString();
+	}
+	
+	@RequestMapping(value = "/config_indexSlide_list", method = RequestMethod.POST)
+	@ResponseBody
+	public String config_indexSlide(){
+		HashMap<String, String> hashconfig = (HashMap<String, String>)CacheManager.getFromCache(Constant.SYSTEM_CONFIG);
+		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("index_slide"), IndexSlide.class);
 		
-		return "";
+		return JSONArray.fromObject(slides).toString();
 	}
 	
 	
