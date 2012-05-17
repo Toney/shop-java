@@ -108,7 +108,7 @@
 				<div id="wind_config_indexSlide" class="easyui-window" <%=win_topbar %>  title="添加幻灯">
 					<div region="center"  border="false" class="bdcenter">
 							<form method="post" id="form_config_indexSlide" enctype="multipart/form-data" >
-								<input type="hidden" name="rowindex" />
+								<input type="hidden" name="rowindex" value="-1" />
 								<input type="hidden" name="action" /> 
 								<input type="hidden" name="savepath" value="resource/upload/indexslide/" />
 								<table class="tab_form">
@@ -143,31 +143,38 @@
 			<iframe src="admin/config/config_footer" frameborder="0"  width="100%" height="600"  ></iframe>
 		</div>
 		<div title="购物设置" class="p10">
-			<table class="tab_form">
-				<tr>
-					<td class="edittd">税率：</td>
-					<td><input type="text" class="text easyui-validatebox" name="name"  required="true" validType="length[1,50]" /></td>
-				</tr>
-				<tr>
-					<td class="edittd">默认备货时间：</td>
-					<td><input type="text" class="text easyui-validatebox" name="name"  required="true" validType="length[1,50]" />天 &nbsp;&nbsp;*订单确认后需要备货的时间</td>
-				</tr>
-				<tr>
-					<td class="edittd">团购过期时间：</td>
-					<td><input type="text" class="text easyui-validatebox" name="name"  required="true" validType="length[1,50]" />分钟 &nbsp;&nbsp;*报名参加团购后多长时间不付款则视为过期，默认为60分钟</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td>
-					<a href="javascript:config_basic_submit()" class="easyui-linkbutton" >保存购物设置</a></td>
-				</tr>
-			</table>
+			<form  method="post" id="form_config_shopcfg" >
+				<table class="tab_form">
+					<tr>
+						<td class="edittd">税率：</td>
+						<td><input type="text" class="text easyui-validatebox" name="tax" value="${system_config['tax']}"  required="true" validType="length[1,50]" /></td>
+					</tr>
+					<tr>
+						<td class="edittd">默认备货时间：</td>
+						<td><input type="text" class="text easyui-validatebox" name="stockup_time" value="${system_config['stockup_time']}"  required="true" validType="length[1,50]" />天 &nbsp;&nbsp;*订单确认后需要备货的时间</td>
+					</tr>
+					<tr>
+						<td class="edittd">团购过期时间：</td>
+						<td><input type="text" class="text easyui-validatebox" name="regiment_time_limit" value="${system_config['regiment_time_limit']}"  required="true" validType="length[1,50]" />分钟 &nbsp;&nbsp;*报名参加团购后多长时间不付款则视为过期，默认为60分钟</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+						<a href="javascript:formsubmit('form_config_shopcfg')" class="easyui-linkbutton" >保存购物设置</a></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 		<div title="显示设置" class="p10">
 			<table class="tab_form">
 					<tr>
 						<td class="edittd">默认的排序依据：</td>
-						<td><input type="text" class="text easyui-validatebox" name="name"  required="true" validType="length[1,50]" />* 在商品列表页中商品的排序依据条件</td>
+						<td><select class="text" name="order_by" >
+							<option value="new">上架时间</option>
+							<option value="price">价格</option>
+							<option value="sale">销量</option>
+							<option value="cpoint">评分</option>
+						</select>* 在商品列表页中商品的排序依据条件</td>
 					</tr>
 					<tr>
 						<td class="edittd">默认的排序方式： 	</td>

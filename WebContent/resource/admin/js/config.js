@@ -201,13 +201,23 @@ $(function() {
 		}
 	});
 	
-	
-	
-	
-	
-	
-	
-	
+	//购物设置 form_config_shopcfg
+	$("#form_config_shopcfg").form({
+		url:"admin/config/config_shopcfg",
+		onSubmit:function(){
+			if($('#form_config_shopcfg').form("validate")){
+				return true;
+			}else{
+				return false;
+			}
+		},
+		success : function(data) {
+			var msg = jQuery.parseJSON(data);
+			if(msg.type == "true"){
+				success(msg.message);
+			}
+		}
+	});
 	
 	
 });

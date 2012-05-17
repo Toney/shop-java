@@ -158,7 +158,7 @@ public class ConfigController extends BaseController implements
 	 */ 
 	@RequestMapping(value = "/config_indexSlide", method = RequestMethod.POST)
 	@ResponseBody
-	public String config_indexSlide(@RequestParam("imgFile") CommonsMultipartFile imgFile,String title,String url,String action,String savepath,int rowindex){
+	public String config_indexSlide(@RequestParam("imgFile") CommonsMultipartFile imgFile,@RequestParam("title") String title,@RequestParam("url") String url,@RequestParam("action") String action,@RequestParam("savepath") String savepath,@RequestParam("rowindex") int rowindex){
 		HashMap<String, String> hashconfig = (HashMap<String, String>)CacheManager.getFromCache(Constant.SYSTEM_CONFIG);
 		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("index_slide"), IndexSlide.class);
 		
@@ -289,15 +289,31 @@ public class ConfigController extends BaseController implements
 	@ResponseBody
 	public String config_footer_do(@RequestParam("site_footer_code") String site_footer_code){
 		this.configService.updateConfig("site_footer_code", site_footer_code);
+		CacheManager.removeCache(Constant.SYSTEM_CONFIG);
+		
 		Message message = new Message();
 		message.setMessage("底部信息修改成功！");
 		message.setType("true");
 		
-		CacheManager.removeCache(Constant.SYSTEM_CONFIG);
-		
 		return JSONObject.fromObject(message).toString();
 	}
 	
+	//购物设置
+	@RequestMapping(value = "/config_shopcfg", method = RequestMethod.POST)
+	@ResponseBody
+	public String config_shopcfg(@RequestParam("tax") String tax,@RequestParam("stockup_time") String stockup_time,@RequestParam("regiment_time_limit") String regiment_time_limit){
+		
+		this.configService.updateConfig("tax", tax);
+		this.configService.updateConfig("stockup_time", stockup_time);
+		this.configService.updateConfig("regiment_time_limit", regiment_time_limit);
+		CacheManager.removeCache(Constant.SYSTEM_CONFIG);
+		
+		Message message = new Message();
+		message.setMessage("购物设置修改成功！");
+		message.setType("true");
+		
+		return JSONObject.fromObject(message).toString();
+	}
 	
 	
 

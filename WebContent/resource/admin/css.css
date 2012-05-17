@@ -55,8 +55,8 @@ table .tb_list td.righttd{padding-left:10px;}
 .bp{padding-right:15px;padding-top:10px;padding-left:10px;padding-bottom:10px;}
 
 .tab_form{width:100%;}
-.tab_form .edittd{width:100px;text-align: right;padding-right:10px;}
-.tab_form input.text{width:250px;margin-right: 10px;border:1px solid #D2D2D2;height: 20px;}
+.tab_form .edittd{width:110px;text-align: right;padding-right:10px;}
+.tab_form input.text,.tab_form select.text{width:250px;margin-right: 10px;border:1px solid #D2D2D2;height: 20px;}
 
 .red{color: red;}
 .green{color:green;}
