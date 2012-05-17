@@ -4,7 +4,7 @@
 body{font-size:12px;}
 body, input, button, select, textarea{font:12px/1.5 Tahoma,'Microsoft Yahei','Simsun'}
 
-a{cursor: pointer;}
+a{cursor: pointer;text-decoration: none;color:#000;}
 
 .headerNav{background-position: 100% -50px;background-repeat: no-repeat;height: 50px;background:url("./images/header_bg.png") repeat-x scroll 0 0 transparent;}
 .logo{float: left;height: 50px;text-indent: -1000px;width: 250px;background: url("./images/logo.png") no-repeat scroll 0 0 transparent;}

@@ -15,7 +15,7 @@
   <select id="getByOrder" resultMap="ShopGuideResult">
   	select * from shop_guide where `order` = #{order}
   </select>
-  <delete id="deleteGuideByOrder" >
+  <delete id="deleteGuideByOrder"  >
   	delete from shop_guide where `order` = #{order}
   </delete>
     <insert id="insert" parameterType="com.shop.model.ShopGuide">

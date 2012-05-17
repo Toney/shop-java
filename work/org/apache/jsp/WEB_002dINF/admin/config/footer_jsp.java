@@ -84,6 +84,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       out.write("<script type=\"text/javascript\" src=\"resource/easyui/locale/easyui-lang-zh_CN.js\"></script>\n");
       out.write("<link href=\"resource/plugin/loadmask/jquery.loadmask.css\" rel=\"stylesheet\" type=\"text/css\" />\n");
       out.write("<script type=\"text/javascript\" src=\"resource/plugin/loadmask/jquery.loadmask.min.js\"></script>\n");
+      out.write("\n");
+      out.write("<link rel=\"stylesheet\" href=\"resource/plugin/fancybox/jquery.fancybox-1.3.4.css\">\n");
+      out.write("<script type=\"text/javascript\" src=\"resource/plugin/fancybox/jquery.mousewheel-3.0.4.pack.js\"></script>\n");
+      out.write("<script type=\"text/javascript\" src=\"resource/plugin/fancybox/jquery.fancybox-1.3.4.pack.js\"></script>\n");
+      out.write("\n");
       out.write("<script type=\"text/javascript\" src=\"resource/admin/global.js\"></script>\n");
       out.write("\r\n");
       out.write("<script charset=\"utf-8\" src=\"resource/plugin/kindeditor/kindeditor.js\"></script>\r\n");

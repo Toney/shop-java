@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ include file="common/config.jsp" %>
+
 <script type="text/javascript" src="resource/admin/js/config.js"></script>
 	<div class="easyui-tabs">
 		<div title="基本设置" class="p10" >
@@ -86,7 +87,8 @@
 									<tr>
 										<td class="edittd">链接地址：</td>
 										<td><input type="text" class="text easyui-validatebox"
-											name="link" required="true" validType="length[1,100]" /></td>
+											name="link" required="true" validType="length[1,100]" />
+											</td>
 									</tr>
 								</table>
 							</form>
@@ -106,6 +108,7 @@
 				<div id="wind_config_indexSlide" class="easyui-window" <%=win_topbar %>  title="添加幻灯">
 					<div region="center"  border="false" class="bdcenter">
 							<form method="post" id="form_config_indexSlide" enctype="multipart/form-data" >
+								<input type="hidden" name="rowindex" />
 								<input type="hidden" name="action" /> 
 								<input type="hidden" name="savepath" value="resource/upload/indexslide/" />
 								<table class="tab_form">

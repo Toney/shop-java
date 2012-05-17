@@ -2,6 +2,7 @@ package com.shop.action;
 
 import java.io.File;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.annotation.Resource;
@@ -157,7 +158,7 @@ public class ConfigController extends BaseController implements
 	 */ 
 	@RequestMapping(value = "/config_indexSlide", method = RequestMethod.POST)
 	@ResponseBody
-	public String config_indexSlide(@RequestParam("imgFile") CommonsMultipartFile imgFile,String title,String url,String order,String action,String savepath){
+	public String config_indexSlide(@RequestParam("imgFile") CommonsMultipartFile imgFile,String title,String url,String action,String savepath,int rowindex){
 		HashMap<String, String> hashconfig = (HashMap<String, String>)CacheManager.getFromCache(Constant.SYSTEM_CONFIG);
 		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("index_slide"), IndexSlide.class);
 		
@@ -168,17 +169,28 @@ public class ConfigController extends BaseController implements
 			
 			IndexSlide slide = new IndexSlide();
 			slide.setImage(image);
-			slide.setOrder(0);
 			slide.setTitle(title);
 			slide.setUrl(url);
 			
 			slides.add(slide);
 			
-			this.configService.updateConfig("index_slide", JsonUtil.getJsonString4JavaArray(slide));
+			
+			this.configService.updateConfig("index_slide", JsonUtil.getJsonString4JavaArray(slides));
 			CacheManager.removeCache(Constant.SYSTEM_CONFIG);
 			
 		}else if(action.equals("update")){
 			
+			if(!imgFile.isEmpty()){
+				savepath = savepath +"image/"+StringUtil.getTimeMD5()+FileUtil.getSuffix(imgFile.getOriginalFilename());
+				String image = FileUtil.saveFile(imgFile, savepath, this.servletContext);
+				slides.get(rowindex).setImage(image);
+			}
+			
+			slides.get(rowindex).setTitle(title);
+			slides.get(rowindex).setUrl(url);
+			
+			this.configService.updateConfig("index_slide", JsonUtil.getJsonString4JavaArray(slides));
+			CacheManager.removeCache(Constant.SYSTEM_CONFIG);
 			
 		}
 		message.setMessage("基本配置修改成功！");
@@ -188,13 +200,81 @@ public class ConfigController extends BaseController implements
 	
 	@RequestMapping(value = "/config_indexSlide_list", method = RequestMethod.POST)
 	@ResponseBody
-	public String config_indexSlide(){
+	public String config_indexSlide_list(){
 		HashMap<String, String> hashconfig = (HashMap<String, String>)CacheManager.getFromCache(Constant.SYSTEM_CONFIG);
 		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("index_slide"), IndexSlide.class);
 		
 		return JSONArray.fromObject(slides).toString();
 	}
 	
+	@RequestMapping(value = "/config_indexSlide_delete", method = RequestMethod.POST)
+	@ResponseBody
+	public String config_indexSlide_delete(@RequestParam("rowindex") int rowindex){
+		HashMap<String, String> hashconfig = (HashMap<String, String>)CacheManager.getFromCache(Constant.SYSTEM_CONFIG);
+		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("index_slide"), IndexSlide.class);
+		
+		List<IndexSlide> newslides = new ArrayList<IndexSlide>();
+		int i=0;
+		for(IndexSlide s:slides){
+			if(i!=rowindex){
+				newslides.add(s);
+			}
+			i++;
+		}
+		this.configService.updateConfig("index_slide", JsonUtil.getJsonString4JavaArray(newslides));
+		CacheManager.removeCache(Constant.SYSTEM_CONFIG);
+		
+		Message message = new Message();
+		message.setMessage("幻灯片删除成功！");
+		message.setType("true");
+		return JSONObject.fromObject(message).toString();
+	}
+	
+	@RequestMapping(value = "/config_indexSlide_Sort", method = RequestMethod.POST)
+	@ResponseBody
+	public String config_indexSlide_Sort(@RequestParam("action") String action,@RequestParam("rowindex") int rowindex){
+		HashMap<String, String> hashconfig = (HashMap<String, String>)CacheManager.getFromCache(Constant.SYSTEM_CONFIG);
+		List<IndexSlide> slides = JsonUtil.getList4Json(hashconfig.get("index_slide"), IndexSlide.class);
+		List<IndexSlide> newslides = new ArrayList<IndexSlide>();
+		
+		
+		IndexSlide temp = slides.get(rowindex);
+		
+		if(action.equals("up")){
+			IndexSlide top = slides.get(rowindex-1);
+			for(int i=0;i<slides.size();i++){
+				if(i==rowindex){
+					newslides.add(top);
+				}else if(i==rowindex-1){
+					newslides.add(temp);
+				}else{
+					newslides.add(slides.get(i));
+				}
+			}
+			
+		}else{
+			//down
+			IndexSlide btn = slides.get(rowindex+1);
+			
+			for(int i=0;i<slides.size();i++){
+				if(i==rowindex){
+					newslides.add(btn);
+				}else if(i==rowindex+1){
+					newslides.add(temp);
+				}else{
+					newslides.add(slides.get(i));
+				}
+			}
+		}
+		
+		this.configService.updateConfig("index_slide", JsonUtil.getJsonString4JavaArray(newslides));
+		CacheManager.removeCache(Constant.SYSTEM_CONFIG);
+		
+		Message message = new Message();
+		message.setMessage("排序修改成功！");
+		message.setType("true");
+		return JSONObject.fromObject(message).toString();
+	}
 	
 	/**
 	 * 配置网站底部信息 

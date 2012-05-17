@@ -1,4 +1,5 @@
 $(function() {
+	
 	$('#form_config_basic').form({
 		url : "admin/config/config_basic_do",
 		onSubmit : function() {
@@ -129,6 +130,7 @@ $(function() {
 			text:'添加幻灯',
 			iconCls:'icon-add',
 			handler:function(){
+				$("#wind_config_indexSlide").window({title:"添加幻灯"});
 				$("#wind_config_indexSlide").window("open");
 				$("#form_config_indexSlide").find("input[name=action]").val("add");
 				
@@ -139,9 +141,14 @@ $(function() {
 			text:'修改幻灯',
 			iconCls:'icon-edit',
 			handler:function(){
-				$("#form_config_indexSlide").find("input[name=action]").val("update");
 				var selected = $('#config_indexSlide').datagrid('getSelected');
 				if(selected){
+					$("#form_config_indexSlide").find("input[name=action]").val("update");
+					$("#form_config_indexSlide").find("input[name=title]").val(selected.title);
+					$("#form_config_indexSlide").find("input[name=url]").val(selected.url);
+					
+					$("#wind_config_indexSlide").window({title:"修改幻灯"});
+					$("#wind_config_indexSlide").window("open");
 					
 				}else{
 					message("请选择一行记录！");
@@ -153,11 +160,19 @@ $(function() {
 		columns:[[
 			{field:'title',title:'名称',width:200},
 			{field:'url',title:'链接地址',width:250},
-			{field:'image',title:'图片文件',width:250},
+			{field:'image',title:'图片文件',width:250,formatter:function(val,rowdata,rowindex){
+				return "<a rel=\"indexslide\" href=\""+rowdata.image+"\">预览</a>";
+			}},
 			{field:'operation',title:'操作',width:200,formatter:function(val,rowdata,rowindex){
-				 return "<a class=\"green\" onclick=\"up("+rowindex+")\" >上移</a>&nbsp;&nbsp;<a class=\"green\" onclick=\"down("+rowindex+")\">下移</a>&nbsp;&nbsp;<a class=\"red\" onclick=\"deleteGuide("+rowdata.order+","+rowdata.name+")\">删除</a>";
+				 return "<a class=\"green\" onclick=\"indexslide_up("+rowindex+")\" >上移</a>&nbsp;&nbsp;<a class=\"green\" onclick=\"indexslide_down("+rowindex+")\">下移</a>&nbsp;&nbsp;<a class=\"red\" onclick=\"deleteIndexSlide("+rowindex+")\">删除</a>";
 			}}
 		]],
+		onLoadSuccess:function(){
+			$("a[rel=indexslide]").fancybox();
+		},
+		onSelect:function(rowindex,rowdata){
+			$("#form_config_indexSlide").find("input[name=rowindex]").val(rowindex);
+		}
 	});
 	
 	
@@ -174,12 +189,17 @@ $(function() {
 			var msg = jQuery.parseJSON(data);
 			if(msg.type == "true"){
 				$('#config_indexSlide').datagrid("reload");
+				
+				//清除输入框等的数据
+				$("#form_config_indexSlide").find("input[name=title]").val("");
+				$("#form_config_indexSlide").find("input[name=url]").val("");
+				$("#form_config_indexSlide").find("input[name=imgFile]").val("");
+				
+				closeWin("wind_config_indexSlide");
+				
 			}
-
 		}
 	});
-	
-	
 	
 	
 	
@@ -225,10 +245,37 @@ function up(rowindex){
 }
 function down(rowindex){
 	var rows = $('#guidelist').datagrid("getRows");
-	if(rowindex!=rows.length-1){
+	if(rowindex<=rows.length-1 && rowindex >0 ){
 		$.post('admin/guide/updateOrder',{order:rowindex,neworder:rowindex+1},function(data){
 			if(data.type == 'true'){
 				$('#guidelist').datagrid("reload");
+			}
+		},'json');
+	}
+}
+//幻灯片设置
+function deleteIndexSlide(rowindex){
+	$.post('admin/config/config_indexSlide_delete',{rowindex:rowindex},function(data){
+		if(data.type == "true"){
+			$('#config_indexSlide').datagrid("reload");
+		}
+	},'json');
+}
+function indexslide_up(rowindex){
+	if(rowindex!=0){
+		$.post('admin/config/config_indexSlide_Sort',{rowindex:rowindex,action:'up'},function(data){
+			if(data.type == "true"){
+				$('#config_indexSlide').datagrid("reload");
+			}
+		},'json');
+	}
+}
+function indexslide_down(rowindex){
+	var rows = $('#config_indexSlide').datagrid("getRows");
+	if(rowindex<rows.length-1 && rowindex >=0 ){
+		$.post('admin/config/config_indexSlide_Sort',{rowindex:rowindex,action:'down'},function(data){
+			if(data.type == "true"){
+				$('#config_indexSlide').datagrid("reload");
 			}
 		},'json');
 	}

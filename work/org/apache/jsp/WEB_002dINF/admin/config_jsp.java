@@ -64,6 +64,7 @@ String win_topbar = "closed=\"true\" modal=\"true\" collapsible=\"false\"  dragg
 
       out.write("    ");
       out.write("\r\n");
+      out.write("\r\n");
       out.write("<script type=\"text/javascript\" src=\"resource/admin/js/config.js\"></script>\r\n");
       out.write("\t<div class=\"easyui-tabs\">\r\n");
       out.write("\t\t<div title=\"基本设置\" class=\"p10\" >\r\n");
@@ -179,7 +180,8 @@ String win_topbar = "closed=\"true\" modal=\"true\" collapsible=\"false\"  dragg
       out.write("\t\t\t\t\t\t\t\t\t<tr>\r\n");
       out.write("\t\t\t\t\t\t\t\t\t\t<td class=\"edittd\">链接地址：</td>\r\n");
       out.write("\t\t\t\t\t\t\t\t\t\t<td><input type=\"text\" class=\"text easyui-validatebox\"\r\n");
-      out.write("\t\t\t\t\t\t\t\t\t\t\tname=\"link\" required=\"true\" validType=\"length[1,100]\" /></td>\r\n");
+      out.write("\t\t\t\t\t\t\t\t\t\t\tname=\"link\" required=\"true\" validType=\"length[1,100]\" />\r\n");
+      out.write("\t\t\t\t\t\t\t\t\t\t\t</td>\r\n");
       out.write("\t\t\t\t\t\t\t\t\t</tr>\r\n");
       out.write("\t\t\t\t\t\t\t\t</table>\r\n");
       out.write("\t\t\t\t\t\t\t</form>\r\n");
@@ -201,6 +203,7 @@ String win_topbar = "closed=\"true\" modal=\"true\" collapsible=\"false\"  dragg
       out.write("  title=\"添加幻灯\">\r\n");
       out.write("\t\t\t\t\t<div region=\"center\"  border=\"false\" class=\"bdcenter\">\r\n");
       out.write("\t\t\t\t\t\t\t<form method=\"post\" id=\"form_config_indexSlide\" enctype=\"multipart/form-data\" >\r\n");
+      out.write("\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"rowindex\" />\r\n");
       out.write("\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"action\" /> \r\n");
       out.write("\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"savepath\" value=\"resource/upload/indexslide/\" />\r\n");
       out.write("\t\t\t\t\t\t\t\t<table class=\"tab_form\">\r\n");
