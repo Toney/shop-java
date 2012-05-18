@@ -219,6 +219,59 @@ $(function() {
 		}
 	});
 	
+	//显示设置 form_config_viewcfg
+	$("#form_config_viewcfg").form({
+		url:"admin/config/config_viewcfg",
+		onSubmit:function(){
+			if($('#form_config_viewcfg').form("validate")){
+				return true;
+			}else{
+				return false;
+			}
+		},
+		success : function(data) {
+			var msg = jQuery.parseJSON(data);
+			if(msg.type == "true"){
+				success(msg.message);
+			}
+		}
+	});
+	
+	//图片设置 form_config_image
+	$("#form_config_image").form({
+		url:"admin/config/config_image",
+		onSubmit:function(){
+			if($('#form_config_image').form("validate")){
+				return true;
+			}else{
+				return false;
+			}
+		},
+		success : function(data) {
+			var msg = jQuery.parseJSON(data);
+			if(msg.type == "true"){
+				success(msg.message);
+			}
+		}
+	});
+	
+	//email设置 form_config_email
+	$("#form_config_email").form({
+		url:"admin/config/config_email",
+		onSubmit:function(){
+			if($('#form_config_email').form("validate")){
+				return true;
+			}else{
+				return false;
+			}
+		},
+		success : function(data) {
+			var msg = jQuery.parseJSON(data);
+			if(msg.type == "true"){
+				success(msg.message);
+			}
+		}
+	});
 	
 });
 
